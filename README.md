@@ -1,6 +1,11 @@
 # Array Dominator Task (CS Helwan 2026).
 
 ## 1. Non-recursive Algorithm: Bruteforce Algorithm
+<video controls width="100%" preload="metadata">
+    <source src="./visuals/videos/1-%20BruteForce.mp4" type="video/mp4">
+    <a href="./visuals/videos/1-%20BruteForce.mp4">Watch the BruteForce video</a>
+</video>
+
 ### Pseudo code 
 ```
 Function iterative1Bruteforce:
@@ -46,6 +51,11 @@ We have two nested loops. The outer loop runs $N$ times, picking each element as
 ---
 
 ## 2. Non-recursive Algorithm: Sort and Count Consecutive
+<video controls width="100%" preload="metadata">
+    <source src="./visuals/videos/2-%20SortAndCount.mp4" type="video/mp4">
+    <a href="./visuals/videos/2-%20SortAndCount.mp4">Watch the SortAndCount video</a>
+</video>
+
 ### Pseudo code
 ```
 Function iterative2SortConsecutive:
@@ -124,6 +134,11 @@ The algorithm relies on sorting the pairs which takes $O(N \log N)$ using a comp
 ---
 
 ## 3. Non-recursive Algorithm: Sort and Check Median
+<video controls width="100%" preload="metadata">
+    <source src="./visuals/videos/3-%20SortAndMedian.mp4" type="video/mp4">
+    <a href="./visuals/videos/3-%20SortAndMedian.mp4">Watch the SortAndMedian video</a>
+</video>
+
 ### Pseudo code
 ```
 Function iterative3SortMedian:
@@ -201,6 +216,11 @@ Similar to the previous solution, the time complexity is determined primarily by
 ---
 
 ## 4. Non-recursive Algorithm: Using a Frequency Array
+<video controls width="100%" preload="metadata">
+    <source src="./visuals/videos/4-%20HashMap.mp4" type="video/mp4">
+    <a href="./visuals/videos/4-%20HashMap.mp4">Watch the HashMap video</a>
+</video>
+
 ### Pseudo code
 ```
 Function iterative4FrequencyArray:
@@ -244,6 +264,11 @@ We traverse all $N$ elements exactly one time. In a well-distributed hashmap, in
 ---
 
 ## 5. Non-recursive Algorithm: Boyer-Moore Majority Vote Algorithm
+<video controls width="100%" preload="metadata">
+    <source src="./visuals/videos/5-%20BoyerMoore.mp4" type="video/mp4">
+    <a href="./visuals/videos/5-%20BoyerMoore.mp4">Watch the BoyerMoore video</a>
+</video>
+
 ### Pseudo code
 ```
 Function iterative5BoyerMoore:
@@ -318,6 +343,11 @@ The majority voting process traverses sequentially through the entire list of $N
 ---
 
 ## 6. Recursive Algorithm: Divide and Conquer
+<video controls width="100%" preload="metadata">
+    <source src="./visuals/videos/6-%20DivideAndConquer.mp4" type="video/mp4">
+    <a href="./visuals/videos/6-%20DivideAndConquer.mp4">Watch the DivideAndConquer video</a>
+</video>
+
 ### Pseudo code
 ```
 Structure Result: 
