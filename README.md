@@ -50,172 +50,7 @@ We have two nested loops. The outer loop runs $N$ times, picking each element as
 
 ---
 
-## 2. Non-recursive Algorithm: Sort and Count Consecutive
-<video controls width="100%" preload="metadata">
-    <source src="./visuals/videos/2-%20SortAndCount.mp4" type="video/mp4">
-    <a href="./visuals/videos/2-%20SortAndCount.mp4">Watch the SortAndCount video</a>
-</video>
-
-### Pseudo code
-```
-Function iterative2SortConsecutive:
-    Input: array A, integer N
-
-    if N = 0 then return -1
-    if N = 1 then return 0
-
-    // Create a copy of array A alongside original indices
-    pairs := array of size N storing (value, original_index)
-    sort pairs by value in ascending order
-
-    count := 1
-    for i := 1 to N - 1 step 1 do
-        if pairs[i].value = pairs[i - 1].value then
-            count := count + 1
-            if count > N / 2 then
-                return pairs[i].original_index
-        else
-            count := 1
-
-    return -1
-```
-
-### Implementation with C language.
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int val;
-    int index;
-} Pair;
-
-int comparePairs(const void *a, const void *b) {
-    int val1 = ((Pair *)a)->val;
-    int val2 = ((Pair *)b)->val;
-    if (val1 < val2) return -1;
-    if (val1 > val2) return 1;
-    return 0;
-}
-
-int iterative2SortConsecutive(int A[], int N) {
-    if (N == 0) return -1;
-    if (N == 1) return 0;
-
-    Pair pairs[N];
-    for (int i = 0; i < N; i++) {
-        pairs[i].val = A[i];
-        pairs[i].index = i;
-    }
-
-    qsort(pairs, N, sizeof(Pair), comparePairs);
-
-    int count = 1;
-    for (int i = 1; i < N; i++) {
-        if (pairs[i].val == pairs[i - 1].val) {
-            count++;
-            if (count > N / 2) {
-                int res = pairs[i].index;
-                return res;
-            }
-        } else {
-            count = 1;
-        }
-    }
-    
-    return -1;
-}
-```
-
-### Analysis
-Time Complexity: $O(N \log N)$
-The algorithm relies on sorting the pairs which takes $O(N \log N)$ using a comparison-based sort. The subsequent linear scan loop executes at most $N-1$ iterations taking $O(N)$ time. The overall time complexity is dominated by the sorting step resulting in an overall time complexity of $O(N \log N)$.
-
----
-
-## 3. Non-recursive Algorithm: Sort and Check Median
-<video controls width="100%" preload="metadata">
-    <source src="./visuals/videos/3-%20SortAndMedian.mp4" type="video/mp4">
-    <a href="./visuals/videos/3-%20SortAndMedian.mp4">Watch the SortAndMedian video</a>
-</video>
-
-### Pseudo code
-```
-Function iterative3SortMedian:
-    Input: array A, integer N
-
-    if N = 0 then return -1
-    
-    pairs := array of size N storing (value, original_index)
-    sort pairs by value in ascending order
-
-    candidate := pairs[N / 2].value
-    candidate_idx := pairs[N / 2].original_index
-
-    count := 0
-    for i := 0 to N - 1 step 1 do
-        if A[i] = candidate then
-            count := count + 1
-
-    if count > N / 2 then
-        return candidate_idx
-        
-    return -1
-```
-
-### Implementation with C language.
-```c
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    int val;
-    int index;
-} Pair;
-
-int comparePairsMedian(const void *a, const void *b) {
-    int val1 = ((Pair *)a)->val;
-    int val2 = ((Pair *)b)->val;
-    if (val1 < val2) return -1;
-    if (val1 > val2) return 1;
-    return 0;
-}
-
-int iterative3SortMedian(int A[], int N) {
-    if (N == 0) return -1;
-
-    Pair pairs[N];
-    for (int i = 0; i < N; i++) {
-        pairs[i].val = A[i];
-        pairs[i].index = i;
-    }
-
-    qsort(pairs, N, sizeof(Pair), comparePairsMedian);
-
-    int candidate = pairs[N / 2].val;
-    int candidate_idx = pairs[N / 2].index;
-
-    int count = 0;
-    for (int i = 0; i < N; i++) {
-        if (A[i] == candidate) {
-            count++;
-        }
-    }
-
-    if (count > N / 2) {
-        return candidate_idx;
-    }
-    return -1;
-}
-```
-
-### Analysis
-Time Complexity: $O(N \log N)$
-Similar to the previous solution, the time complexity is determined primarily by the chosen sorting algorithm, `qsort`, running in $O(N \log N)$. Extracting the median and validating it with a loop traversing $N$ elements in linear $O(N)$ time keeps the upper bound time complexity limited to $O(N \log N)$.
-
----
-
-## 4. Non-recursive Algorithm: Using a Frequency Array
+## 2. Non-recursive Algorithm: Using a Frequency Array
 <video controls width="100%" preload="metadata">
     <source src="./visuals/videos/4-%20HashMap.mp4" type="video/mp4">
     <a href="./visuals/videos/4-%20HashMap.mp4">Watch the HashMap video</a>
@@ -263,7 +98,7 @@ We traverse all $N$ elements exactly one time. In a well-distributed hashmap, in
 
 ---
 
-## 5. Non-recursive Algorithm: Boyer-Moore Majority Vote Algorithm
+## 3. Non-recursive Algorithm: Boyer-Moore Majority Vote Algorithm
 <video controls width="100%" preload="metadata">
     <source src="./visuals/videos/5-%20BoyerMoore.mp4" type="video/mp4">
     <a href="./visuals/videos/5-%20BoyerMoore.mp4">Watch the BoyerMoore video</a>
@@ -342,7 +177,7 @@ The majority voting process traverses sequentially through the entire list of $N
 
 ---
 
-## 6. Recursive Algorithm: Divide and Conquer
+## 4. Recursive Algorithm: Divide and Conquer
 <video controls width="100%" preload="metadata">
     <source src="./visuals/videos/6-%20DivideAndConquer.mp4" type="video/mp4">
     <a href="./visuals/videos/6-%20DivideAndConquer.mp4">Watch the DivideAndConquer video</a>
@@ -469,9 +304,9 @@ The recursion logic evenly divides the array space precisely into logical halves
 
 ---
 
-## Algorithm 4 vs. Recursive Algorithm Comparison
+## Algorithm 2 vs. Recursive Algorithm Comparison
 
-| Criteria | Algorithm 4: Using a Frequency Array | Algorithm 6: Divide and Conquer |
+| Criteria | Algorithm 2: Using a Frequency Array | Algorithm 4: Divide and Conquer |
 | :--- | :--- | :--- |
 | **1- Algorithm Approach** | Iterative (Hash Map) | Recursive (Divide and Conquer) |
 | **2- Time Complexity** | Expected $O(N)$, Worst-case $O(N^2)$ | $O(N \log N)$ |
