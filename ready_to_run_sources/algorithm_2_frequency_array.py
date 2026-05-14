@@ -7,7 +7,7 @@ def iterative4FrequencyArray(A, N):
         else:
             frequency[A[i]] = 1
             
-        if frequency[A[i]] > N / 2:
+        if frequency[A[i]] > N // 2:
             return i
             
     return -1
