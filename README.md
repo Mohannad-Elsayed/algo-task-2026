@@ -1,5 +1,3 @@
-# Array Dominator Task (CS Helwan 2026).
-
 ## 1. Non-recursive Algorithm: Bruteforce Algorithm
 <video controls width="100%" preload="metadata">
     <source src="./visuals/videos/1-%20BruteForce.mp4" type="video/mp4">
@@ -63,12 +61,12 @@ Function iterative4FrequencyArray:
 
     if N = 0 then return -1
     
-    hash_map := empty hash table for counting
+    frequency := empty dictionary for counting
     
     for i := 0 to N - 1 step 1 do
-        hash_map[A[i]] := hash_map[A[i]] + 1
+        frequency[A[i]] := frequency[A[i]] + 1
         
-        if hash_map[A[i]] > N / 2 then
+        if frequency[A[i]] > N / 2 then
             return i
             
     return -1
@@ -76,25 +74,24 @@ Function iterative4FrequencyArray:
 
 ### Implementation with Python.
 ```python
-def iterative4FrequencyArray(A):
-    N = len(A)
-    hash_map = {}
+def iterative4FrequencyArray(A, N):
+    frequency = {}
     
     for i in range(N):
-        if A[i] in hash_map:
-            hash_map[A[i]] += 1
+        if A[i] in frequency:
+            frequency[A[i]] += 1
         else:
-            hash_map[A[i]] = 1
+            frequency[A[i]] = 1
             
-        if hash_map[A[i]] > N / 2:
+        if frequency[A[i]] > N / 2:
             return i
             
     return -1
 ```
 
 ### Analysis
-Time Complexity: Expected $O(N)$, Worst-case $O(N^2)$
-We traverse all $N$ elements exactly one time. In a well-distributed hashmap, insertions, retrievals, and increment updates execute entirely in $O(1)$ expected constant time. Processing the $N$ elements linearly gives an aggregate required time bound to $O(N)$. If large scale repetitive hashing collisions occur, the hash chain iteration will degrade lookup to $O(N)$, hence leading to $O(N^2)$ complexity in the absolute worst-case scenario without a balanced self-adjusting structure.
+Time Complexity: Expected $O(N)$.
+We traverse all $N$ elements exactly one time. In a dictionary, insertions, retrievals, and increment updates execute entirely in $O(1)$ expected constant time. Processing the $N$ elements linearly gives an aggregate required time bound to $O(N)$.
 
 ---
 
@@ -239,9 +236,6 @@ $$T(N) = aT(N/b) + f(N)$$
 leaf-growth factor $\log_b a$:
 $$\log_b a = \log_2 2 = 1$$
 
-Comparing the non-recursive work exponent ($c$) to $\log_b a$:
-$$c = \log_b a \quad (1 = 1)$$
-
 **Case 2** of the Master Theorem. Evaluates to:
 $$T(N) = \Theta(N^{\log_b a} \log N) = \Theta(N^1 \log N)$$
 
@@ -253,7 +247,7 @@ Thus, the final complexity resolves broadly to bounded $O(N \log N)$.
 
 | Criteria | Algorithm 2: Using a Frequency Array | Algorithm 4: Divide and Conquer |
 | :--- | :--- | :--- |
-| **1- Algorithm Approach** | Iterative (Hash Map) | Recursive (Divide and Conquer) |
-| **2- Time Complexity** | Expected $O(N)$, Worst-case $O(N^2)$ | $O(N \log N)$ |
-| **3- Advantages** | <ul><li>Very fast average-case performance bounding to $O(N)$.</li><li>Simple code logic that translates easily across modern languages.</li></ul> | <ul><li>Guaranteed strict worst-case limits capping at $O(N \log N)$.</li><li>Does not suffer from hash-collision degradation vulnerabilities.</li></ul> |
+| **1- Algorithm Approach** | Iterative (Dictionary) | Recursive (Divide and Conquer) |
+| **2- Time Complexity** | $O(N)$ | $O(N \log N)$ |
+| **3- Advantages** | <ul><li>Very fast performance bounding to $O(N)$.</li><li>Simple code logic that translates easily across modern languages.</li></ul> | <ul><li>Guaranteed strict worst-case limits capping at $O(N \log N)$.</li><li>Does not suffer from hash-collision degradation vulnerabilities.</li></ul> |
 | **4- Disadvantages** | <ul><li>Worst-case performance can degrade to $O(N^2)$ with severe hashing collisions.</li><li>Needs explicit allocation per unique element inducing overhead.</li></ul> | <ul><li>Recursive operations add sequential stack overhead limiting runtime performance.</li><li>Average mathematical cost of $O(N \log N)$ is slower than linear approaches.</li></ul> |
