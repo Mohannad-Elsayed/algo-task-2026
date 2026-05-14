@@ -98,86 +98,7 @@ We traverse all $N$ elements exactly one time. In a well-distributed hashmap, in
 
 ---
 
-## 3. Non-recursive Algorithm: Boyer-Moore Majority Vote Algorithm
-<video controls width="100%" preload="metadata">
-    <source src="./visuals/videos/5-%20BoyerMoore.mp4" type="video/mp4">
-    <a href="./visuals/videos/5-%20BoyerMoore.mp4">Watch the BoyerMoore video</a>
-</video>
-
-### Pseudo code
-```
-Function iterative5BoyerMoore:
-    Input: array A, integer N
-
-    if N = 0 then return -1
-    
-    candidate := 0
-    count := 0
-    candidate_idx := -1
-    
-    for i := 0 to N - 1 step 1 do
-        if count = 0 then
-            candidate := A[i]
-            candidate_idx := i
-            count := 1
-        else if A[i] = candidate then
-            count := count + 1
-        else
-            count := count - 1
-            
-    total_count := 0
-    for i := 0 to N - 1 step 1 do
-        if A[i] = candidate then
-            total_count := total_count + 1
-            
-    if total_count > N / 2 then
-        return candidate_idx
-        
-    return -1
-```
-
-### Implementation with C language.
-```c
-#include <stdio.h>
-
-int iterative5BoyerMoore(int A[], int N) {
-    int candidate = 0;
-    int count = 0;
-    int candidate_idx = -1;
-
-    for (int i = 0; i < N; i++) {
-        if (count == 0) {
-            candidate = A[i];
-            candidate_idx = i;
-            count = 1;
-        } else if (A[i] == candidate) {
-            count++;
-        } else {
-            count--;
-        }
-    }
-
-    int total_count = 0;
-    for (int i = 0; i < N; i++) {
-        if (A[i] == candidate) {
-            total_count++;
-        }
-    }
-
-    if (total_count > N / 2) {
-        return candidate_idx;
-    }
-    return -1;
-}
-```
-
-### Analysis
-Time Complexity: $O(N)$
-The majority voting process traverses sequentially through the entire list of $N$ elements exactly twice (one pass for discovering the dominator algorithm candidate, and another independent sweep for verifying frequencies). Each array location implies minimal state check operations in $O(1)$ boundaries. Hence it operates strictly bound by a time complexity $O(N)$.
-
----
-
-## 4. Recursive Algorithm: Divide and Conquer
+## 3. Recursive Algorithm: Divide and Conquer
 <video controls width="100%" preload="metadata">
     <source src="./visuals/videos/6-%20DivideAndConquer.mp4" type="video/mp4">
     <a href="./visuals/videos/6-%20DivideAndConquer.mp4">Watch the DivideAndConquer video</a>
@@ -299,8 +220,32 @@ int recursive6DivideAndConquer(int A[], int N) {
 ```
 
 ### Analysis
-Time Complexity: $O(N \log N)$
-The recursion logic evenly divides the array space precisely into logical halves generating a recursion tree defining bounded $\log N$ depth frames. At each internal block, evaluating counts requires looping subsets in linear time bound $O(N)$ with `countOccurrencesRange()`. Hence evaluated strictly dynamically matching standard Master Theorem characteristics forms $T(N) = 2T(N/2) + O(N)$; resolving broadly to bounded $O(N \log N)$ complexity.
+### Time Complexity Analysis
+
+**Time Complexity:** $O(N \log N)$
+
+The recursion logic evenly divides the array space precisely into logical halves, generating a recursion tree defining bounded $\log N$ depth frames. At each internal block, evaluating counts requires looping subsets in linear time bound $O(N)$ with `countOccurrencesRange()`. Hence, evaluated strictly dynamically matching standard Master Theorem characteristics, this forms the recurrence relation:
+
+$$T(N) = 2T(N/2) + O(N)$$
+
+---
+
+$$T(N) = aT(N/b) + f(N)$$
+
+* $a = 2$
+* $b = 2$
+* $f(N) = O(N) = \Theta(N^c)$ where $c = 1$
+
+leaf-growth factor $\log_b a$:
+$$\log_b a = \log_2 2 = 1$$
+
+Comparing the non-recursive work exponent ($c$) to $\log_b a$:
+$$c = \log_b a \quad (1 = 1)$$
+
+**Case 2** of the Master Theorem. Evaluates to:
+$$T(N) = \Theta(N^{\log_b a} \log N) = \Theta(N^1 \log N)$$
+
+Thus, the final complexity resolves broadly to bounded $O(N \log N)$.
 
 ---
 
